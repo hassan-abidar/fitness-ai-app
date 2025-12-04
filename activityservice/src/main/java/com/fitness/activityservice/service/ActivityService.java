@@ -8,8 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -47,5 +47,10 @@ public class ActivityService {
     public List<ActivityResponse> getUserActivities(String userId) {
             List<Activity> activities = activityRepository.findByUserId(userId);
             return activities.stream().map(this::mapToResponse).collect(Collectors.toList());
+    }
+
+    public @Nullable ActivityResponse getActivityById(String activityId) {
+        Optional<Activity> activity = activityRepository.findById(activityId);
+        return activity.map(this::mapToResponse).orElseThrow(()-> new RuntimeException("No activity found with id: " + activityId));
     }
 }

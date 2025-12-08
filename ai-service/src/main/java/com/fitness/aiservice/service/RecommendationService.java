@@ -20,6 +20,6 @@ public class RecommendationService {
 
     public @Nullable Recommendation getActivityRecommendation(String activityId) {
         return recommendationRepo.findByActivityId(activityId)
-                .orElseThrow(()-> new RuntimeException("No activity found with activityId : "+activityId));
+                .orElseThrow(()-> new RuntimeException("No recommendation for activity with activityId : "+activityId));
     }
 }
